@@ -1,29 +1,32 @@
 # Power_Query_Projects
 Transformaciones de datos realizadas con Power Query de Power BI
+
 Proyecto: Consolidación de Datos para Reportes DEM Corporate
-Descripción del Proyecto
-El proyecto de Consolidación de Datos para Reportes DEM Corporate se centró en optimizar y unificar el proceso de manejo de datos en la generación de reportes para una empresa corporativa. Como analista de datos semi-senior, mi objetivo era mejorar la eficiencia en la transformación de datos, permitiendo una toma de decisiones más informada.
+
+Descripción del Proyecto:
+
+El proyecto de Consolidación de Datos para Reportes DEM Corporate se centró en optimizar y unificar el proceso de manejo de datos en la generación de reportes para una empresa corporativa. Como analista de datos semi-senior, mi objetivo era mejorar la eficiencia en la transformación de datos, permitiendo una toma de decisiones más informada. 🚀
 
 Objetivos y Alcance
-Los objetivos principales incluyeron la consolidación y limpieza de datos mensuales, provenientes de diferentes fuentes y formatos, para generar informes unificados. El alcance abarcó desde la extracción hasta la transformación de datos en Power BI, utilizando herramientas como Power Query y su editor avanzado.
+Los objetivos principales incluyeron la consolidación y limpieza de datos mensuales, provenientes de diferentes fuentes y formatos, para generar informes unificados. El alcance abarcó desde la extracción hasta la transformación de datos en Power BI, utilizando herramientas como Power Query y su editor avanzado. 📊
 
 Desafíos y Soluciones
-El proyecto presentó desafíos significativos, como la gestión de grandes volúmenes de datos heterogéneos y la necesidad de mantener la coherencia en los informes. Abordé estos desafíos mediante la implementación de consultas eficientes, la eliminación de duplicados y la integración de información clave en un único repositorio.
+El proyecto presentó desafíos significativos, como la gestión de grandes volúmenes de datos heterogéneos y la necesidad de mantener la coherencia en los informes. Abordé estos desafíos mediante la implementación de consultas eficientes, la eliminación de duplicados y la integración de información clave en un único repositorio. 💡
 
 Herramientas Utilizadas
-Durante el desarrollo del proyecto, utilicé la herramienta Power Query en Power BI, para la limpieza y transformación de datos.
+Durante el desarrollo del proyecto, utilicé la herramienta Power Query en Power BI, para la limpieza y transformación de datos. 🛠️
 
 Estructura del Proyecto
-La estructura del proyecto se diseñó para facilitar la comprensión y mantenimiento del flujo de datos. Se crearon consultas individuales para cada mes, seguidas de consultas de consolidación para unificar los datos a lo largo del año.
+La estructura del proyecto se diseñó para facilitar la comprensión y mantenimiento del flujo de datos. Se crearon consultas individuales para cada mes, seguidas de consultas de consolidación para unificar los datos a lo largo del año. 🗂️
 
 Resultados y Beneficios
-La consolidación de datos permitió generar informes unificados y coherentes, proporcionando una visión más clara y eficiente para la toma de decisiones. Los reportes resultantes facilitaron la identificación de patrones y tendencias, mejorando la capacidad de la empresa para realizar análisis estratégicos.
+La consolidación de datos permitió generar informes unificados y coherentes, proporcionando una visión más clara y eficiente para la toma de decisiones. Los reportes resultantes facilitaron la identificación de patrones y tendencias, mejorando la capacidad de la empresa para realizar análisis estratégicos. 📈
 
 Proceso de Desarrollo
-Desde la identificación de los requisitos hasta la implementación y validación, el proceso de desarrollo se llevó a cabo de manera estructurada, asegurando la calidad y consistencia de los datos a lo largo del proyecto.
+Desde la identificación de los requisitos hasta la implementación y validación, el proceso de desarrollo se llevó a cabo de manera estructurada, asegurando la calidad y consistencia de los datos a lo largo del proyecto. 🔄
 
 Códigos M:
-Los códigos M desarrollados para el proyecto, se centran en la eficiencia y claridad en la manipulación de datos. A continuación, se detallan los códigos utilizados, que ilustran la lógica aplicada en la limpieza y transformación de datos.
+Los códigos M desarrollados para el proyecto, se centran en la eficiencia y claridad en la manipulación de datos. A continuación, se detallan los códigos utilizados, que ilustran la lógica aplicada en la limpieza y transformación de datos. 🧑‍💻
 
 Lectura y transformación de archivos originales. El ejemplo se muestra para un solo mes pero se realizó para todos los meses del año:
 
@@ -251,4 +254,4 @@ in
     #"Se expandió Consolidado_Dimensión"
 ```
 
-Con este proyecto se alcanza a tener una base de datos anual final, con todos los datos limpios y con una estructura establecida, que permitirá en los siguientes proyectos, realizar visualizaciones de datos que mejoraran la toma de decisiones empresariales y mi capacidad para abordar desafíos complejos en el ámbito de la analítica de datos, proporcionando soluciones efectivas.
+Con este proyecto se alcanza a tener una base de datos anual final, con todos los datos limpios y con una estructura establecida, que permitirá en los siguientes proyectos, realizar visualizaciones de datos que mejoraran la toma de decisiones empresariales y mi capacidad para abordar desafíos complejos en el ámbito de la analítica de datos, proporcionando soluciones efectivas. 🎉
