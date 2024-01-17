@@ -1,0 +1,67 @@
+**Proyecto de Transformación de Datos en Power BI con Power Query** 🚀
+
+Descripción del Proyecto 📝
+Este proyecto se centra en la transformación de datos utilizando Power Query en Power BI. El objetivo principal es procesar, consolidar y limpiar archivos ubicados en una carpeta específica, realizando una serie de transformaciones para facilitar el análisis de datos en el contexto de un análisis de negocios. El script de Power Query se ejecuta en el Editor Avanzado de Power BI y aborda diversas tareas, desde la carga de archivos hasta la eliminación de duplicados y la manipulación de fechas.
+
+Desafíos Presentados 🤔
+
+Manipulación de Fechas:
+Desafío: Las fechas en los archivos se presentaba sin separadores, en formato yyyymmdd (Ejemplo: 20240103) y algunas estaban incompletas.
+Solución: Se implementó una lógica para extraer, transformar y combinar partes de las fechas, abordando la variabilidad en el formato y manejando fechas vacías.
+
+Manipulación de Nombres de Archivo:
+Desafío: Los nombres de archivo incluyen la fecha de creación del mismo, por lo que, se requirió extracción y manipulación para obtener dicha fecha en una nueva columna.
+Solución: Se realizaron varias transformaciones en los nombres de archivo, creando una nueva columna con la fecha de archivo para facilitar el análisis temporal.
+
+Optimización del Rendimiento:
+Desafío: El procesamiento de grandes conjuntos de datos puede afectar el rendimiento.
+Solución: Se aplicó optimización al ordenar las filas y utilizar la función Table.Buffer para luego, eliminar los registros duplicados, manteniendo el registro más reciente y mejorando el rendimiento durante la ejecución del script.
+
+Normalización de Texto:
+Desafío: Garantizar la consistencia en el formato del texto, especialmente en nombres de regiones y observaciones.
+Solución: Se aplicaron transformaciones de texto para normalizar mayúsculas y minúsculas, y para capitalizar correctamente nombres de regiones y observaciones.
+
+Ejecución del Proyecto ▶️
+Para ejecutar este proyecto, sigue estos pasos:
+
+El código detallado es el siguiente:
+
+```
+let
+    Origen = Folder.Files("E:\Reportes DEM\2024\Reportes_Unificados\OrdenesOrigenAmdocsEmpresas\XLS Procesados\Enero"),
+    #"Archivos ocultos filtrados1" = Table.SelectRows(Origen, each [Attributes]?[Hidden]? <> true),
+    #"Invocar función personalizada1" = Table.AddColumn(#"Archivos ocultos filtrados1", "Transformar archivo (4)", each #"Transformar archivo (4)"([Content])),
+    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Invocar función personalizada1", {"Name", "Source.Name"}),
+    #"Otras columnas quitadas1" = Table.SelectColumns(#"Columnas con nombre cambiado1", {"Source.Name", "Transformar archivo (4)"}),
+    #"Columna de tabla expandida1" = Table.ExpandTableColumn(#"Otras columnas quitadas1", "Transformar archivo (4)", Table.ColumnNames(#"Transformar archivo (4)"(#"Archivo de ejemplo (4)"))),
+    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columna de tabla expandida1",{{"PERIODO", type text}, {"SOURCE_SYSTEM", type text}, {"ORDER_KEY", type text}, {"ORDER_ACTION_KEY", type text}, {"ORDER_ITEM_TYPE_DESC", type text}, {"ORDER_ACTION_STATUS_DESC", type text}, {"ORDER_ACTION_REASON_DESC", type text}, {"ORDER_ACTION_START_DATE", type text}, {"ORDER_ACTION_COMPLETED_DATE", type text}, {"ORDER_ACTION_STEP_TYPE_NAME", type text}, {"CUSTOMER_TYPE_DESC", type text}, {"CUSTOMER_SUB_TYPE_DESC", type text}, {"ENTERPRISE_RUT_ID", type text}, {"IDENTIFICATION_DOCUMENT_1_NUMB", type text}, {"CUSTOMER_LEGAL_NAME", type text}, {"PORTABILITY_TYPE", type text}, {"DELIVERY_METHOD_DESC", type text}, {"CUSTOMER_KEY", type text}, {"SUBSCRIBER_KEY", type text}, {"PRIMARY_RESOURCE_VALUE", type text}, {"PAYMENT_CATEGORY_DESC", type text}, {"AGENT_USER_INITIAL", type text}, {"AGENT_DESC_INITIAL", type text}, {"SALES_CHANNEL_NAME_INITIAL", type text}, {"SALES_SUBCHANNEL_NAME_INITIAL", type text}, {"SITE_NAME_INITIAL", type text}, {"COMPANY_INITIAL", type text}, {"STORE_ID", type text}, {"ID_ORDEN", type text}, {"FECHA_CREACION_ORDEN", type text}, {"FECHA_CREACION_ACTIVIDAD", type text}, {"NOD_NOMBRE_ESTADO", type text}, {"NOD_NOMBRE_OBSERVACION", type text}, {"COMENTARIO_FLAG_ERROR", type text}, {"NOD_REGION", type text}, {"NOD_COMUNA", type text}, {"NOMBRE_CALLE", type text}, {"NUMERO_CALLE", type text}, {"CANTIDAD_ICC", type text}, {"CANTIDAD_IMEI", type text}, {"NOD_ID_ALMACEN_ORIGEN", type text}}),
+    #"Filtrando por Cambiar" = Table.SelectRows(#"Tipo cambiado", each ([ORDER_ITEM_TYPE_DESC] = "Cambiar")),
+    #"Últimos caracteres insertados" = Table.AddColumn(#"Filtrando por Cambiar", "Últimos caracteres", each Text.End([ORDER_ACTION_START_DATE], 4), type text),
+    #"Últimos caracteres insertados1" = Table.AddColumn(#"Últimos caracteres insertados", "Últimos caracteres.1", each Text.End([Últimos caracteres], 2), type text),
+    #"Primeros caracteres insertados" = Table.AddColumn(#"Últimos caracteres insertados1", "Primeros caracteres", each Text.Start([Últimos caracteres], 2), type text),
+    #"Primeros caracteres insertados1" = Table.AddColumn(#"Primeros caracteres insertados", "Primeros caracteres.1", each Text.Start([ORDER_ACTION_START_DATE], 4), type text),
+    #"Personalizada agregada" = Table.AddColumn(#"Primeros caracteres insertados1", "FECHA_INICIO_ACCION_ORDEN", each [Últimos caracteres.1]&"-"&[Primeros caracteres]&"-"&[Primeros caracteres.1]),
+    #"Últimos caracteres insertados2" = Table.AddColumn(#"Personalizada agregada", "Últimos caracteres.2", each Text.End([ORDER_ACTION_COMPLETED_DATE], 4), type text),
+    #"Últimos caracteres insertados3" = Table.AddColumn(#"Últimos caracteres insertados2", "Últimos caracteres.3", each Text.End([Últimos caracteres.2], 2), type text),
+    #"Primeros caracteres insertados2" = Table.AddColumn(#"Últimos caracteres insertados3", "Primeros caracteres.2", each Text.Start([Últimos caracteres.2], 2), type text),
+    #"Primeros caracteres insertados3" = Table.AddColumn(#"Primeros caracteres insertados2", "Primeros caracteres.3", each Text.Start([ORDER_ACTION_COMPLETED_DATE], 4), type text),
+    #"Personalizada agregada1" = Table.AddColumn(#"Primeros caracteres insertados3", "FECHA_FIN_ACCION_ORDEN", each [Últimos caracteres.3]&"-"&[Primeros caracteres.2]&"-"&[Primeros caracteres.3]),
+    #"Reemplazando Fecha Fin Vacía por 01-01-1900" = Table.ReplaceValue(#"Personalizada agregada1","--","01-01-1900",Replacer.ReplaceText,{"FECHA_FIN_ACCION_ORDEN"}),
+    #"Asignando tipo de dato Fecha" = Table.TransformColumnTypes(#"Reemplazando Fecha Fin Vacía por 01-01-1900",{{"FECHA_INICIO_ACCION_ORDEN", type date}, {"FECHA_FIN_ACCION_ORDEN", type date}}),
+    #"Texto en minúsculas" = Table.TransformColumns(#"Asignando tipo de dato Fecha",{{"AGENT_USER_INITIAL", Text.Lower, type text}}),
+    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(#"Texto en minúsculas",{{"NOD_NOMBRE_OBSERVACION", Text.Proper, type text}, {"NOD_REGION", Text.Proper, type text}, {"NOD_COMUNA", Text.Proper, type text}, {"NOMBRE_CALLE", Text.Proper, type text}, {"ORDER_ACTION_REASON_DESC", Text.Proper, type text}, {"ORDER_ACTION_STEP_TYPE_NAME", Text.Proper, type text}, {"ORDER_ACTION_STATUS_DESC", Text.Proper, type text}}),
+    #"Últimos caracteres extraídos" = Table.TransformColumns(#"Poner En Mayúsculas Cada Palabra", {{"Source.Name", each Text.End(_, 12), type text}}),
+    #"Texto extraído antes del delimitador" = Table.TransformColumns(#"Últimos caracteres extraídos", {{"Source.Name", each Text.BeforeDelimiter(_, "."), type text}}),
+    #"Dividir columna por posiciones" = Table.SplitColumn(#"Texto extraído antes del delimitador", "Source.Name", Splitter.SplitTextByPositions({0, 2, 4}), {"Source.Name.1", "Source.Name.2", "Source.Name.3"}),
+    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Dividir columna por posiciones",{{"Source.Name.1", type text}, {"Source.Name.2", type text}, {"Source.Name.3", type text}}),
+    #"Agregando Fecha de Archivo" = Table.AddColumn(#"Tipo cambiado1", "Fecha_Archivo", each [Source.Name.1]&"-"&[Source.Name.2]&"-"&[Source.Name.3]),
+    #"Cambiando a tipo fecha" = Table.TransformColumnTypes(#"Agregando Fecha de Archivo",{{"Fecha_Archivo", type date}}),
+    #"Columnas quitadas" = Table.RemoveColumns(#"Cambiando a tipo fecha",{"SOURCE_SYSTEM", "PERIODO", "CUSTOMER_TYPE_DESC", "CUSTOMER_SUB_TYPE_DESC", "IDENTIFICATION_DOCUMENT_1_NUMB", "ENTERPRISE_RUT_ID", "CUSTOMER_LEGAL_NAME", "PORTABILITY_TYPE", "DELIVERY_METHOD_DESC", "SUBSCRIBER_KEY", "PAYMENT_CATEGORY_DESC", "AGENT_DESC_INITIAL", "SALES_CHANNEL_NAME_INITIAL", "SALES_SUBCHANNEL_NAME_INITIAL", "COMPANY_INITIAL", "STORE_ID", "ID_ORDEN", "FECHA_CREACION_ORDEN", "FECHA_CREACION_ACTIVIDAD", "COMENTARIO_FLAG_ERROR", "NOD_ID_ALMACEN_ORIGEN", "ORDER_ACTION_START_DATE", "ORDER_ACTION_COMPLETED_DATE", "Últimos caracteres", "Últimos caracteres.1", "Primeros caracteres", "Primeros caracteres.1", "Últimos caracteres.2", "Últimos caracteres.3", "Primeros caracteres.2", "Primeros caracteres.3", "Source.Name.1", "Source.Name.2", "Source.Name.3", "ORDER_ITEM_TYPE_DESC", "CUSTOMER_KEY", "PRIMARY_RESOURCE_VALUE", "SITE_NAME_INITIAL", "NOD_NOMBRE_ESTADO", "CANTIDAD_ICC", "CANTIDAD_IMEI"}),
+    #"Filas ordenadas" = Table.Buffer(Table.Sort(#"Columnas quitadas",{{"Fecha_Archivo", Order.Descending}})),
+    #"Duplicados quitados" = Table.Distinct(#"Filas ordenadas", {"ORDER_ACTION_KEY"})
+in
+    #"Duplicados quitados"
+```
+
+Conclusiones 🎉
+Este proyecto ilustra la potencia de Power Query en Power BI para la limpieza y transformación efectiva de datos. La combinación de funciones personalizadas, manipulación de fechas y optimización de rendimiento aborda desafíos comunes en la preparación de datos para el análisis posterior. El resultado es una tabla estructurada y lista para ser utilizada en informes y visualizaciones dentro de Power BI.
