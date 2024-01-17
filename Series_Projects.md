@@ -1,7 +1,4 @@
-# Power_Query_Projects
-Transformaciones de datos realizadas con Power Query de Power BI
-
-Proyecto: Consolidación de Datos para Reportes DEM Corporate
+**Proyecto: Consolidación de Datos para Reportes DEM Corporate**
 
 Descripción del Proyecto:
 
