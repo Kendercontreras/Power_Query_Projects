@@ -5,7 +5,7 @@ Proyecto: Consolidación de Datos para Reportes DEM Corporate
 
 Descripción del Proyecto:
 
-El proyecto de Consolidación de Datos para Reportes DEM Corporate se centró en optimizar y unificar el proceso de manejo de datos en la generación de reportes para una empresa corporativa. Como analista de datos semi-senior, mi objetivo era mejorar la eficiencia en la transformación de datos, permitiendo una toma de decisiones más informada. 🚀
+El proyecto de Consolidación de Datos para Reportes DEM Corporate se centró en optimizar y unificar el proceso de manejo de datos en la generación de reportes para una empresa corporativa. Como analista de datos, mi objetivo era mejorar la eficiencia en la transformación de datos, permitiendo una toma de decisiones más informadas. 🚀
 
 Objetivos y Alcance
 Los objetivos principales incluyeron la consolidación y limpieza de datos mensuales, provenientes de diferentes fuentes y formatos, para generar informes unificados. El alcance abarcó desde la extracción hasta la transformación de datos en Power BI, utilizando herramientas como Power Query y su editor avanzado. 📊
